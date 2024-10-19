@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+const app = require("../app");
+const http = require("http");
+//Get port from environment and store in express.
+
+function normalizePort(value) {
+  let port = parseInt(value, 10);
+
+  if (isNaN(port)) {
+    return port //named pipe
+  }
+
+  if (port >= 0) {
+    return port //port number
+  };
+
+  return false;
+}
+
+function onError(error) {
+  if (error.syscall !== "listen") throw error;
+
+  let bind = typeof port === "string" ? "Pipe" + port : "Port" + port;
+
+  //Handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onListening(){
+	let addr = server.address()
+	let bind = typeof addr === 'string' ? ' Pipe '+addr : ' Port ' + addr.port
+	console.warn("Server started on ==>",bind)
+}
+
+let port = normalizePort(process.env.PORT || "80");
+app.set("port", port);
+
+//Create the HTTP server.
+let server = http.createServer(app);
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);

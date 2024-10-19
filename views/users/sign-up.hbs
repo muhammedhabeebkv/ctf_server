@@ -1,0 +1,200 @@
+<section id="sign-up" class="auth">
+	<form action="/sign-up" method="post" onsubmit="return sendForm()" oninput="validation()" enctype="application/x-www-form-urlencoded">
+			<div class="field">
+				<label for="username">Name</label>
+				<div class="input">
+					<i class="bx bx-user"></i>
+					<input type="text" name="username" id="username" autocomplete="off">
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Enter the username.</span>
+			</div>
+
+			<div class="field">
+				<label for="email">email</label>
+				<div class="input">
+					<i class="bx bxl-gmail"></i>
+					<input type="email" name="email" id="email" autocomplete="off">
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Enter the valid email address.</span>
+			</div>
+
+			<div class="field bday">
+				<label for="dob">DOB</label>
+				<div class="input bday">
+					<i class='bx bxs-calendar' ></i>
+					<input type="text" id="bday-day" name="bday_day" placeholder="dd" autocomplete="bday-day" min="1" max="31">
+					<input type="text" id="bday-month" name="bday_month" placeholder="mm" autocomplete="bday-month" min="1" max="12">
+					<input type="text" id="bday-year" name="bday_year" placeholder="yyyy" autocomplete="bday-year" min="1940" maxlength="4">
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Enter the date of birth.</span>
+			</div>
+
+			<div class="field">
+				<label for="password">Password</label>
+				<div class="input">
+					<i class="bx bx-lock"></i>
+					<input type="password" name="password" id="password" autocomplete="off">
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</span>
+			</div>
+
+			<div class="field options">
+				<ul>
+					<li>
+						<label for="terms_and_condition">Agree our <a href="/terms-and-condition">Terms and condition</a></label>
+						<input type="checkbox" name="terms_and_condition" id="terms_and_condition" value="i accepted" autocomplete="off"></li>
+					<li>I've an account ?<a href="/login"> Sign-in</a></li>
+				</ul>
+			</div>
+			<button type="submit">Register</button>
+	</form>
+
+	<script>
+			let username = document.getElementById('username');
+			let email = document.getElementById('email');
+			let bday_day = document.getElementById('bday-day');
+			let bday_month = document.getElementById('bday-month');
+			let bday_year = document.getElementById('bday-year');
+			let password = document.getElementById('password');
+			let errorIcon = document.getElementsByClassName('error-icon');
+			let errorMsg = document.getElementsByClassName('error-msg');
+			let inputField = document.getElementsByClassName('input');
+			let terms_and_condition = document.getElementById('terms_and_condition');
+			bday_year.max =new Date().getFullYear() - 10
+
+		let valid = {}
+		function valueCheck (input, index, pattern, validName){
+			if(input.value.match(pattern)){
+				errorIcon[index].classList.remove('active')
+				errorMsg[index].classList.remove('active')
+				inputField[index].classList.remove('active')
+				if(validName == 'username') valid[validName] = true
+				if(validName == 'email') valid[validName] = true
+				if(validName == 'password') valid[validName] = true
+			}
+			else{
+				errorIcon[index].classList.add('active')
+				errorMsg[index].classList.add('active')
+				inputField[index].classList.add('active')
+				if(validName == 'username') valid[validName] = false
+				if(validName == 'email') valid[validName] = false
+				if(validName == 'password') valid[validName] = false
+			}
+		}		
+
+		function detectSting(input){
+			if(input.value){
+				let value = input.value.split("")
+				let finalValue = '';
+				for(let check=0; check<value.length; check++){
+					if(Number(value[check]) || value[check] == 0){
+						finalValue += value[check]
+					}
+				}
+				input.value = finalValue
+			}
+		}
+
+		function dateValidate(){
+			let dayLen = bday_day.value.length;
+			let monthLen = bday_month.value.length;
+			let yearLen = bday_year.value.length;
+
+			detectSting(bday_day)
+			detectSting(bday_month)
+			detectSting(bday_year)
+
+			if(dayLen == 2 && monthLen == 0 && yearLen == 0){
+				bday_month.focus()
+			}
+			else if(dayLen == 2 && monthLen == 2 && yearLen == 0){
+				if(bday_month.value == 02){
+					if(bday_day.value > 28){
+						bday_day.value = 28
+					}
+				}
+				bday_year.focus()
+			}
+			else if(dayLen > 2) {
+				dayLen = 2
+				bday_month.focus()
+				bday_day.value = bday_day.value.slice(0,2)
+			}
+			else if(monthLen > 2) {
+				monthLen = 2
+				bday_year.focus()
+				bday_month.value = bday_month.value.slice(0,2)
+			}
+
+			if(bday_day.value > 31) {
+				bday_day.value = 31
+			}
+			else if(bday_month.value > 12) {
+				bday_month.value = 12
+			}
+			else if(bday_year.value > 1950 && bday_year.value > new Date().getFullYear() - 10){
+				bday_year.value = new Date().getFullYear() - 10
+			}
+			else if(bday_month.value == 04 || bday_month.value == 06 || bday_month.value == 9 || bday_month.value == 11){
+				if(bday_day.value > 30){
+					bday_day.value = 30
+				}
+				else if(bday_month.value == 02){
+					if(bday_day.value > 28){
+						bday_day.value = 28
+					}
+				}
+			}
+
+		bday_year.addEventListener('keyup',(e) => {
+			if(e.keyCode == 8 && bday_year.value == ""){
+				bday_month.focus()
+			}
+		})
+
+		bday_month.addEventListener('keyup',(e) => {
+			if(e.keyCode == 8 && bday_month.value == ""){
+				bday_day.focus()
+			}
+		})
+
+		if(dayLen == 2 && monthLen == 2 && yearLen == 4 && bday_year.value && bday_year.value >= 1950){
+			errorIcon[2].classList.remove('active')
+			errorMsg[2].classList.remove('active')
+			inputField[2].classList.remove('active')
+
+			valid.bday = true
+		}
+		else{
+			errorIcon[2].classList.add('active')
+			errorMsg[2].classList.add('active')
+			inputField[2].classList.add('active')
+			valid.bday = false
+		}
+		}//end function
+			
+		function validation(){
+
+			const namePattern = /^[A-Za-z\s]{4,30}$/
+  	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+[A-Za-z\d@]$/;
+  	const dobPattern = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+  	const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,50}$/
+
+			valueCheck(username,0, namePattern, 'username')
+			valueCheck(email,1, emailPattern, 'email')
+			valueCheck(password,3, passwordPattern, 'password')
+			dateValidate()
+		}
+
+		function sendForm(){
+			if(valid.username && valid.email && valid.password && valid.bday && terms_and_condition.checked) return true
+
+			return false
+		}
+		
+	</script>
+</section>

@@ -1,0 +1,73 @@
+<section id="login" class="auth">
+	<form action="/login" method="post" onsubmit="return validation()" oninput="validation()" enctype="application/x-www-form-urlencoded">
+
+			<div class="field">
+				<label for="email">email</label>
+				<div class="input">
+					<i class="bx bxl-gmail"></i>
+					<input type="email" name="email" id="email" autocomplete="off" required>
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Enter the valid email address.</span>
+			</div>
+
+			<div class="field">
+				<label for="password">Password</label>
+				<div class="input">
+					<i class="bx bx-lock"></i>
+					<input type="password" name="password" id="password" required autocomplete="off">
+					<i class='bx bx-error-circle error-icon'></i>
+				</div>
+				<span class="error-msg">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</span>
+			</div>
+
+			<div class="field options">
+				<ul>
+					<li><a href="/login?reset=password">forgotte password?</a></li>
+					<li>Don't have an account ?<a href="/sign-up"> Sign-up</a></li>
+				</ul>
+			</div>
+			<button type="submit">Login</button>
+	</form>
+
+
+	<script>
+			let email = document.getElementById('email')
+			let password = document.getElementById('password')
+			let errorIcon = document.getElementsByClassName('error-icon');
+			let errorMsg = document.getElementsByClassName('error-msg');
+			let inputField = document.getElementsByClassName('input')
+
+		let valid = {}
+		function valueCheck (input, index, pattern, validName){
+			if(input.value.match(pattern)){
+				errorIcon[index].classList.remove('active')
+				errorMsg[index].classList.remove('active')
+				inputField[index].classList.remove('active')
+				if(validName == 'email') valid[validName] = true
+				if(validName == 'password') valid[validName] = true
+			}
+			else{
+				errorIcon[index].classList.add('active')
+				errorMsg[index].classList.add('active')
+				inputField[index].classList.add('active')
+				if(validName == 'email') valid[validName] = false
+				if(validName == 'password') valid[validName] = false
+			}
+		}		
+			
+		function validation(){
+
+  	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+[A-Za-z\d@]$/;
+  	const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,50}$/
+
+			valueCheck(email,0, emailPattern, 'email')
+			valueCheck(password,1, passwordPattern, 'password')
+
+			if(valid.email && valid.password ) return true
+
+			return false
+		}
+		
+	</script>
+</section>

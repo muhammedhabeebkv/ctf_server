@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <title>CTF SERVER - ACCESS DENIED!</title>
+    <style>
+      body{
+        background-color: #252525;
+        color: #e6e3de;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .error-box {
+        width: 300px;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        padding: 10px;
+        overflow: hidden;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+      button {
+        width: 80px;
+        padding: 3px;
+        font-weight: bold;
+        border: 1px solid gray;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-box">
+      <h1>Access Denied!</h1>
+      <span>Status : 403</span>
+      <p>Date :</p>
+      <button onclick="history.back()">Go Back</button>
+    </div>
+
+    <script>
+      let	h1 = document.querySelector('div > h1'),
+      	span = document.querySelector('div > span'),
+      	p = document.querySelector('div > p');
+
+      fetch('/auth/error').then((response) => {
+      	response.json().then(({typeName, statusCode, time}) => {
+      		h1.innerText = typeName;
+      		span.innerText = "Code : "+statusCode;
+      		p.innerText = "Date : "+time;
+      	})
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "baryonyx",
+  "version": "1.0.0",
+  "description": "ctf server",
+  "main": "bin/www",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https:github/cyb3rk1n5/ctf_server"
+  },
+  "author": "muhammedhabeebkv",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-bouncer": "^0.2.0",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "helmet": "^7.0.0",
+    "hpp": "^0.2.3",
+    "joi": "^17.9.2",
+    "mongodb": "^5.5.0",
+    "toobusy-js": "^0.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

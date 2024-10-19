@@ -1,0 +1,158 @@
+.admin-user-management {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.admin-user-management .user-search input,
+.admin-user-management .user-search select {
+	padding: 5px;
+	border: 3px solid var(--border-col);
+	background-color: var(--sidebar-col);
+	outline: none;
+	color: var(--black-and-white-col);
+}
+
+.admin-user-management .user-search select option {
+	font-weight: bold;
+	font-size: .8rem;
+}
+
+.admin-user-management .user-search input::placeholder {
+	font-size: .7rem;
+	font-weight: bold;
+	color: var(--text-col);
+}
+
+/* user list */
+
+.admin-user-management .user-list {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: start;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.admin-user-management .user-list .container {
+	overflow: hidden;
+	background-color: var(--body-col);
+	border: 2px solid var(--border-col);
+	color: var(--black-and-white-col);
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--radius_s);
+	padding: 10px;
+	gap: 10px;
+	max-width: 320px;
+}
+
+.admin-user-management .user-list .container h1 {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.admin-user-management .user-list .container span {
+	display: block;
+	font-size: .8rem;
+}
+
+.admin-user-management .user-list ul {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: scroll;
+	margin-top: 4px;
+	gap: 8px;
+}
+
+.admin-user-management .user-list ul li {
+	padding: 4px;
+	list-style: none;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: var(--sidebar-col);
+	border: 2px solid var(--border-col);
+	color: var(--link-col);
+}
+
+.admin-user-management .user-list ul li:active {
+	scale: .9;
+}
+
+.admin-user-management .user-list ul li a {
+	text-decoration: none;
+}
+
+.admin-user-management .user-list .icon {
+	margin-right: 4px;
+}
+
+.admin-user-management .user-list ul li:last-child {
+	color: var(--error-col);
+}
+
+.admin-user-management .change-role,
+.admin-user-management .delete-user {
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	z-index: 999;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	cursor: not-allowed;
+}
+
+.admin-user-management .change-role form,
+.admin-user-management .delete-user .delete-container {
+	position: absolute;
+	width: 300px;
+	background-color: var(--sidebar-col);
+	color: var(--text-col);
+	padding: 10px;
+	border-radius: var(--radius_s);
+	cursor: default;
+}
+
+.admin-user-management .delete-user .delete-container {
+	width: 350px;
+}
+
+.admin-user-management .change-role form select,
+.admin-user-management .change-role form input {
+	background-color: var(--sidebar-col);
+	border: 2px solid var(--border-col);
+	padding: 5px;
+	outline: none;
+}
+
+.admin-user-management .change-role p,
+.admin-user-management .delete-user p{
+	font-size: .7rem;
+	color: var(--error-col);
+	font-weight: bold;
+	margin: 5px;
+}
+
+.admin-user-management .delete-user p:first-child{
+	font-size: .9rem;
+	margin-bottom: 10px;
+}
+
+.admin-user-management .delete-user p:nth-child(2) {
+	font-weight: 500;
+}
+
+.admin-user-management .change-role button,
+.admin-user-management .delete-user button {
+	width: 80px;
+	cursor: pointer;
+}
+
+button:active {
+	scale: .9;
+}

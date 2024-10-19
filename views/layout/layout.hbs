@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+	{{#if title}}
+	<title>Baryonyx {{title}}</title>
+	{{else}}
+	<title>Baryonyx</title>
+	{{/if}}
+
+	<link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="stylesheet" href="/css/admin-style.css">
+  
+</head>
+<body>
+	<script>
+      if(localStorage.getItem('Dark Mode') == 'true') {
+		    document.querySelector('body').classList.add("dark")
+		  };
+    </script>
+	{{#if auth}}
+    {{!-- navigation bar --}}
+    {{else}}
+      <nav class="sidebar close">
+        {{#if admin.login}}
+            {{>admin-panel}}
+        {{else if sub_admin}}
+            {{>sub-admin-panel}}
+        {{else}}
+            {{>user-panel}}
+        {{/if}}
+      </nav>
+    {{/if}}
+	
+	<main class="home">
+
+    {{#if Error.Error}}
+    <div class="error">
+      <p>{{Error.ErrorMsg}}</p>
+      <i class="bx bx-x error-close" onclick="document.querySelector('.error').style.display = 'none'"></i>
+    </div>
+    {{/if}}
+    
+    {{#if Success.Success}}
+    <div class="success">
+      <p>{{Success.SuccessMsg}}</p>
+      <i class="bx bx-x success-close" onclick="document.querySelector('.success').style.display = 'none'"></i>
+    </div>
+    {{/if}}
+    
+		{{{body}}}
+	</main>
+
+	<button type="button" id="bottom-to-up" title="Go to top"><i class="bx bx-chevron-up"></i></button>
+
+	{{#if auth}}
+     {{!-- footer --}}
+    {{else}}
+      {{>footer}}
+	  
+	  <script src="/js/sidebar_theme.js"></script>
+    {{/if}}
+
+	<script> 
+      let bottomUp = document.querySelector('#bottom-to-up')
+      let section = document.querySelector('section')
+
+      section.onscroll = scrollFunc
+
+      bottomUp.addEventListener('click', el =>{
+        section.scrollTop = 0
+      })
+
+      function scrollFunc () {
+        if(section.scrollTop > 30){
+          bottomUp.style.display = 'block'
+          document.documentElement.scrollTop = 0
+        }
+        else{
+          bottomUp.style.display = 'none'
+        }
+      }
+    </script>
+</body>
+</html>

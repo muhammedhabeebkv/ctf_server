@@ -1,0 +1,106 @@
+<section id="settings">
+  <div class="st-categories">
+    <h1>Themes</h1>
+    <ul>
+      <li class="mode">
+        <div class="sun-moon">
+          <i class="bx bx-moon icon moon"></i>
+          <i class="bx bx-sun icon sun"></i>
+        </div>
+        <span class="mode-text">Dark mode</span>
+
+        <div class="toggle-switch">
+          <span class="switch"></span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="st-categories auth">
+    <h1>Change default creadential</h1>
+    <form action="/admin/change-default-credential" method="post" onsubmit="return validation()" oninput="validation()" enctype="application/x-www-form-urlencoded">
+      <div class="field">
+        <label for="email">email</label>
+        <div class="input">
+          <i class="bx bxl-gmail"></i>
+          <input type="email" name="email" id="email" autocomplete="off" />
+          <i class="bx bx-error-circle error-icon"></i>
+        </div>
+        <span class="error-msg">Enter the valid email address.</span>
+      </div>
+
+      <div class="field">
+        <label for="password">Current Password</label>
+        <div class="input">
+          <i class="bx bx-lock"></i>
+          <input type="password" name="current_password" id="current-password" autocomplete="off" />
+          <i class="bx bx-error-circle error-icon"></i>
+        </div>
+        <span class="error-msg">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</span>
+      </div>
+
+      <div class="field">
+        <label for="password">New Password</label>
+        <div class="input">
+          <i class="bx bx-lock"></i>
+          <input type="password" name="new_password" id="new-password" autocomplete="off" />
+          <i class="bx bx-error-circle error-icon"></i>
+        </div>
+        <span class="error-msg">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</span>
+      </div>
+      <button type="submit">Change</button>
+    </form>
+  </div>
+
+  <script>
+    let email = document.getElementById('email'); 
+    let currentPassword = document.getElementById('current-password');
+    let newPassword = document.getElementById('new-password'); 
+    let errorIcon = document.getElementsByClassName('error-icon'); 
+    let errorMsg = document.getElementsByClassName('error-msg'); 
+    let inputField =document.getElementsByClassName('input'); 
+    let valid = {} 
+    function valueCheck (input, index, pattern, validName){ 
+        if(input.value.match(pattern)){
+            errorIcon[index].classList.remove('active');
+            errorMsg[index].classList.remove('active'); 
+            inputField[index].classList.remove('active'); 
+            if(validName == 'email') valid[validName] = true; 
+            if(validName == 'currentPassword') valid[validName] = true; 
+            if(validName == 'newPassword') valid[validName] = true;
+        } 
+        else{ 
+            errorIcon[index].classList.add('active');
+            errorMsg[index].classList.add('active');
+            inputField[index].classList.add('active');
+
+            if(validName == 'email') valid[validName] = false; 
+            if(validName == 'currentPassword') valid[validName] = false;
+            if(validName == 'newPassword') valid[validName] = false;
+        } 
+    } 
+    function validation(){ 
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+[A-Za-z\d@]$/; 
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,50}$/; 
+
+        valueCheck(email,0, emailPattern, 'email');
+        valueCheck(currentPassword,1,passwordPattern, 'currentPassword');
+        valueCheck(newPassword,2,passwordPattern, 'newPassword');
+        
+        if(valid.email && valid.currentPassword && valid.newPassword ) return true;
+        
+        return false; 
+    } 
+
+  </script>
+
+  <div class="st-categories">
+    <h1>Shortcut</h1>
+    <ul>
+      <li class="shortcut">shift + alt + m  <a href="/machine"><span><i class="bx bx-laptop"></i> Machine</span></a></li>
+      <li class="shortcut">shift + alt + r  <a href="/rooms"><span><i class="bx bx-home-alt"></i> Rooms</span></a></li>
+      <li class="shortcut">shift + alt + c  <a href="/global-chat"><span><i class="bx bx-globe"></i> Global-chat</span></a></li>
+      <li class="shortcut">shift + alt + s  <a href="/settings"><span><i class="bx bx-cog"></i> Settings</span></a></li>
+      <li class="shortcut">shift + alt + p  <a href="/user/profile"><span><i class="bx bx-user"></i> Profile</span></a></li>
+    </ul>
+  </div>
+</section>

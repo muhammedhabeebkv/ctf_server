@@ -1,0 +1,158 @@
+.auth {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.st-categories.auth {
+  width: auto;
+  display: block;
+}
+
+.auth form {
+  width: 350px;
+  padding: 10px;
+  background-color: var(--sidebar-col);
+  color: var(--text-col);
+  border-radius: var(--radius_s);
+  border: 2px solid var(--border-col);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.auth form > .field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.auth form > span {
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: var(--success-col);
+		max-width: 250px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.auth form > .field.bday {
+  width: auto;
+}
+
+.auth form > .field label,
+.auth form > .field input {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--black-and-white-col);
+}
+
+.auth form > .field .input {
+  border: 2px solid var(--border-col);
+  border-radius: var(--radius_s);
+  box-sizing: border-box;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth form > .field .input.bday > input[name="bday_day"] {
+  margin-left: 5px;
+  width: 60px;
+  border-left: 2px solid var(--border-col);
+}
+
+.auth form > .field .input.bday > input[name="bday_month"] {
+  width: 60px;
+  border-left: 2px solid var(--border-col);
+}
+
+.auth form > .field .input.bday > input[name="bday_year"] {
+  width: 75px;
+  border-left: 2px solid var(--border-col);
+}
+
+.auth form > .field .input.active {
+  border: 2px solid var(--error-col);
+}
+
+.auth form > .field input {
+  padding: 4px;
+  background-color: var(--sidebar-col);
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+
+.auth form > .field.options {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.auth form > .field.options ul li {
+  list-style: none;
+  font-weight: 500;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.auth form > .field.options ul li label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.auth form > .field.options ul li input {
+  width: 15px;
+}
+
+.auth form > .field.options ul li a {
+  color: var(--blue-col);
+  text-decoration: none;
+}
+
+.auth form > button {
+  width: 110px;
+  padding: 3px;
+  cursor: pointer;
+  background-color: var(--sidebar-col);
+  border: 2px solid var(--border-col);
+  color: var(--text-col);
+  font-weight: bold;
+}
+
+.auth form > button:active {
+  scale: 0.9;
+}
+
+/* auth error */
+
+form .error-icon {
+  color: var(--error-col);
+  position: relative;
+  display: none;
+}
+
+form .error-msg {
+  display: none;
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: var(--error-col);
+}
+
+form .error-msg.active {
+  display: inline;
+}
+
+form .error-icon.active {
+  display: inline;
+}

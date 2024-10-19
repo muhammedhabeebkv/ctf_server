@@ -1,0 +1,104 @@
+<header>
+  <div class="image-text">
+    <span class="image">
+        <img src="/img/user-profile/{{user.photo}}" alt="logo" />
+    </span>
+
+    <div class="text logo-text">
+        <span class="name">Admin</span>
+        <span class="email">{{admin.email}}</span>
+    </div>
+  </div>
+
+  <i class="bx bx-chevron-right toggle"></i>
+</header>
+
+<div class="menu-bar">
+  <div class="menu">
+
+    <li class="search-box" title="Search bar">
+      <i class="bx bx-search icon"></i>
+      <input type="text" list="search-list-helper" id="search" placeholder="Search..." />
+      <datalist id="search-list-helper">
+        <option value="Bug bounty">Bug bounty</option>
+        <option value="Programming">Programming</option>
+      </datalist>
+    </li>
+
+    <ul class="menu-links">
+
+      <li class="nav-link" title="Dashboard">
+        <a href="/admin/dashboad" accesskey="d">
+          <i class="bx bx-home-alt icon"></i>
+          <span class="text nav-text">Dashboad</span>
+        </a>
+      </li>
+
+      <li class="nav-link" title="Machine">
+        <a href="/admin/machine" accesskey="m">
+          <i class='bx bx-laptop icon' ></i>
+          <span class="text nav-text">Machine</span>
+        </a>
+      </li>
+
+      <li class="nav-link" title="rooms">
+        <a href="/admin/rooms" accesskey="r">
+          <i class='bx bx-home-alt icon' ></i>
+          <span class="text nav-text">Rooms</span>
+        </a>
+      </li>
+
+      <li class="nav-link" title="Settings">
+        <a href="/admin/globel-chat" accesskey="c">
+          <i class='bx bx-globe icon' ></i>
+          <span class="text nav-text">Chat</span>
+        </a>
+      </li>
+
+						<li class="nav-link" title="Settings">
+        <a href="/admin/manage-user" accesskey="u">
+          <i class="bx bx-user icon"></i>
+          <span class="text nav-text">Manage user</span>
+        </a>
+      </li>
+
+      <li class="nav-link" title="Settings">
+        <a href="/admin/settings" accesskey="s">
+          <i class="bx bx-cog icon"></i>
+          <span class="text nav-text">Settings</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="bottom-content">
+    <ul class="menu-links">
+        <li class="nav-link notification-box" title="Notifications">
+          <a href="/admin/notifications" accesskey="n">
+            <i class="bx bx-bell icon"><span class="notification-count">500</span></i>
+            <span class="text nav-text">Notifications</span>
+          </a>
+        </li>
+
+        <li class="nav-link" title="Logout">
+          <a href="/logout" accesskey="l">
+            <i class="bx bx-log-out icon"></i>
+            <span class="text nav-text">Logout</span>
+          </a>
+        </li>
+    </ul>
+
+  </div>
+</div>
+
+<script>
+  document.querySelector('#search').addEventListener('keyup',e =>{ 
+    if(e.target.value){
+      if(e.keyCode === 13){
+        window.location = '/search?q='+encodeURIComponent(e.target.value)
+        e.target.value = ''
+      }
+    }
+	})
+</script>

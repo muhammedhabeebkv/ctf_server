@@ -1,0 +1,124 @@
+<section class="admin-user-management">
+  {{#if query}}
+  <span>Search :{{query}}</span>
+  {{/if}}
+  <div class="user-search">
+    <form action="/admin/manage-user" enctype="application/x-www-form-urlencoded">
+      <input type="text" list="search-help" id="filter-input" name="q" placeholder="search user" required/>
+      <input type="submit" value="Search"/>
+      <select name="filter" id="filter">
+        <option value="q" onclick="changeFilter('text')" selected>Query</option>
+        <option value="name" onclick="changeFilter('text')">Name</option>
+        <option value="dob" onclick="changeFilter('date')">Date</option>
+        <option value="email" onclick="changeFilter('email')">Email</option>
+      </select>
+
+      <datalist id="search-help" >
+        {{#each userInfo}}
+            <option value="{{email}}">{{email}}</option>
+        {{/each}}
+      </datalist>
+    </form>
+  </div>
+
+  <div class="user-list">
+    {{#each userInfo}}
+      <div class="container">
+        <h1>Name :{{username}}</h1>
+        <div class="user-list-options">
+          <span>Email : {{email}}</span>
+          <span>Role : {{role}}</span>
+          <span>Date of Birth : {{dob}}</span>
+          <span>Create at : {{createAt}}</span>
+          <ul>
+            <li><a href="/admin/manage-user/{{_id}}"><i class="bx bx-user"></i>Profile</a></li>
+            <li  onclick="changeRoleFunc('{{_id}}',this,'{{role}}')"><i class="bx bx-user icon"></i>Role</li>
+            <li><i class="bx bx-time icon"></i> Ban</li>
+            <li onclick="return deleteConfirm('{{role}}','{{_id}}','{{username}}',this)"><i class="bx bx-trash icon"></i>Delete</li>
+          </ul>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="change-role" id="change-role">
+    <form action="/admin/manage-user/change-role" method="post">
+					<input type="text" id="token" name="token" hidden value="token">
+      <label for="role">Role</label>
+      <select name="role" id="role" required>
+        <option value="sub_admin">Sub admin</option>
+        <option value="user">User</option>
+      </select>
+      <p><i class="bx bx-info-circle"></i>If you change the user permission to user/sub_admin that user can access all the feature that role.</p>
+      <div class="btn">
+        <button type="reset" id="role-close-btn">Cancel</button>
+        <button type="submit">Change</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="delete-user" id="delete-user">
+    <div class="delete-container">  
+      <p>If you want to delete the user of <span id="delete-username"></span>?</p>
+      <p><i class="bx bx-info-circle"></i> If you done, it never restore again!</p>
+      <div class="btn">
+        <button type="button" id="delete-close-btn">Cancel</button>
+        <button type="button" id="delete-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+		<script>
+      let filterInput = document.getElementById('filter-input');
+      let filter = document.getElementById('filter');
+
+      function changeFilter(fieldtype) {
+        filterInput.name = filter.value;
+        filterInput.type = fieldtype;
+      }
+
+      //change role
+			let changeRole = document.getElementById('change-role');
+			let token = document.getElementById('token');
+
+			document.getElementById('role-close-btn').addEventListener('click' ,(e) => {
+				changeRole.style.display = 'none';
+			})
+
+			function changeRoleFunc(id,e,currentRole){
+        let role = document.getElementById('role')
+
+        role.childNodes.forEach(e => {
+          if(e.value == currentRole){
+            e.disabled = true
+            e.selected = true
+          }
+        })
+
+				token.value = id;
+				changeRole.style.display = 'flex';
+        changeRole.firstElementChild.style.top = ( e.offsetTop - 150 ) + "px";
+        changeRole.firstElementChild.style.left = ( e.offsetLeft - 80 ) + "px";
+			};
+
+      function deleteConfirm(role,id,username,e) {
+        let deleteUserBox = document.getElementById('delete-user'),
+            deleteCloseBtn = document.getElementById('delete-close-btn'),
+            deleteConfirmBtn = document.getElementById('delete-confirm'),
+            deleteUsername = document.getElementById('delete-username');
+
+            deleteCloseBtn.addEventListener('click',() => {
+              deleteUserBox.style.display = 'none'
+            })
+
+            deleteConfirmBtn.addEventListener('click',() => {
+              window.location = "/admin/manage-user?delete="+role+"&id="+id+"&username="+username
+            })
+
+            deleteUsername.innerText = username
+            deleteUserBox.style.display =  'flex'
+            deleteUserBox.firstElementChild.style.top = (e.offsetTop - 150) + "px"
+            deleteUserBox.firstElementChild.style.left = (e.offsetLeft - 120) + "px"
+      }
+		</script>
+</section>
